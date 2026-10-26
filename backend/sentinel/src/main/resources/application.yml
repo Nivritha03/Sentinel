@@ -13,12 +13,14 @@ spring:
       WRITE_DATES_AS_TIMESTAMPS: false
 
 server:
-  port: 8080
+  port: ${PORT:8080}
 
 sentinel:
+  cors:
+    allowed-origin: ${CORS_ALLOWED_ORIGIN:http://localhost:5173}
   ml:
-    base-url: http://localhost:8000
-    mode: RULES_ONLY # RULES_ONLY, ML_ONLY, HYBRID
+    base-url: ${ML_SERVICE_URL:http://localhost:8000}
+    mode: ${ML_MODE:RULES_ONLY} # RULES_ONLY, ML_ONLY, HYBRID
 
   admin:
     username: ${SENTINEL_ADMIN_USERNAME:admin}
