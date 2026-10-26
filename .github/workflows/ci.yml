@@ -11,6 +11,12 @@ jobs:
     name: Backend Tests (Java & Spring Boot)
     runs-on: ubuntu-latest
 
+    services:
+      mongodb:
+        image: mongo:6.0
+        ports:
+          - 27017:27017
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -28,6 +34,8 @@ jobs:
 
       - name: Run Maven Tests
         working-directory: backend/sentinel
+        env:
+          SPRING_DATA_MONGODB_URI: mongodb://localhost:27017/sentinel_test
         run: ./mvnw clean test
 
   ml-service-test:

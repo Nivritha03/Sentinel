@@ -21,10 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @SpringBootTest
-@EnableAutoConfiguration(exclude = {
-        org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration.class,
-        org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration.class
-})
 @AutoConfigureMockMvc
 @TestInstance(Lifecycle.PER_CLASS)
 @SuppressWarnings("null")
