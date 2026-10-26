@@ -35,18 +35,23 @@ public class InvestigationIntegrationTest {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private com.sentinel.auth.UserRepository userRepository;
+
+    @Autowired
+    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
+
     private String adminToken;
     private String analystToken;
     private String viewerToken;
 
     @BeforeAll
     void setUpUsers() throws Exception {
-        // Create test users if they do not already exist
-        if (!userService.usersExist()) {
-            userService.createUser("admin", "adminpass", com.sentinel.auth.Role.ADMIN);
-            userService.createUser("analyst", "analystpass", com.sentinel.auth.Role.ANALYST);
-            userService.createUser("viewer", "viewerpass", com.sentinel.auth.Role.VIEWER);
-        }
+        userRepository.deleteAll();
+        userService.createUser("admin", "adminpass", com.sentinel.auth.Role.ADMIN);
+        userService.createUser("analyst", "analystpass", com.sentinel.auth.Role.ANALYST);
+        userService.createUser("viewer", "viewerpass", com.sentinel.auth.Role.VIEWER);
+
         adminToken = obtainToken("admin", "adminpass");
         analystToken = obtainToken("analyst", "analystpass");
         viewerToken = obtainToken("viewer", "viewerpass");
