@@ -120,7 +120,8 @@ public class AuthController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Reset link has expired or is invalid.");
         }
 
-        // Reset password
+        // Reset password for the associated user
+        userService.updatePassword(entry.username, newPassword);
         resetTokens.remove(token);
         return Map.of("message", "Password has been reset successfully. You may now sign in.");
     }

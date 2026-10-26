@@ -35,4 +35,11 @@ public class UserService implements UserDetailsService {
     public boolean usersExist() {
         return userRepository.count() > 0;
     }
+
+    public void updatePassword(String username, String newRawPassword) {
+        userRepository.findByUsername(username).ifPresent(user -> {
+            user.setPasswordHash(passwordEncoder.encode(newRawPassword));
+            userRepository.save(user);
+        });
+    }
 }
