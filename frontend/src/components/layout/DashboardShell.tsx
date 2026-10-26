@@ -16,12 +16,14 @@ import {
   X,
   Shield,
   LogOut,
+  FlaskConical,
 } from 'lucide-react';
 import { SentinelLogo } from '../ui/SentinelLogo';
 import { useAuth } from '../../context/AuthContext';
 
 const navItems = [
   { label: 'Overview', href: '/dashboard', icon: LayoutDashboard },
+  { label: 'Fraud Sandbox', href: '/sandbox', icon: FlaskConical },
   { label: 'Transactions', href: '/transactions', icon: ArrowLeftRight },
   { label: 'Flagged', href: '/flagged', icon: AlertTriangle },
   { label: 'Investigations', href: '/investigations', icon: SearchIcon },

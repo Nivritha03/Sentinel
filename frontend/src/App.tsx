@@ -14,6 +14,7 @@ import FlaggedPage from './pages/FlaggedPage';
 import InvestigationsPage from './pages/InvestigationsPage';
 import AuditLogsPage from './pages/AuditLogsPage';
 import SettingsPage from './pages/SettingsPage';
+import { FraudSandboxPage } from './pages/FraudSandboxPage';
 
 function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -35,6 +36,7 @@ export default function App() {
 
             {/* Protected Dashboard Routes (Guarded: redirect to /sign-in if not authenticated) */}
             <Route path="/dashboard" element={<DashboardLayout><DashboardOverview /></DashboardLayout>} />
+            <Route path="/sandbox" element={<DashboardLayout><FraudSandboxPage /></DashboardLayout>} />
             <Route path="/transactions" element={<DashboardLayout><TransactionsPage /></DashboardLayout>} />
             <Route path="/transactions/new" element={<DashboardLayout><NewTransactionPage /></DashboardLayout>} />
             <Route path="/transactions/:id" element={<DashboardLayout><TransactionDetailPage /></DashboardLayout>} />

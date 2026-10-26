@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import {
@@ -31,18 +31,9 @@ import {
   RiskBadge,
   StatusBadge,
 } from '../components/ui';
+import { LiveThreatRadar } from '../components/dashboard/LiveThreatRadar';
+import { AdvancedExplainabilityHub } from '../components/dashboard/AdvancedExplainabilityHub';
 import { formatCurrency, formatRelativeTime } from '../utils';
-
-// Mock chart data (demo mode when DB is empty)
-const MOCK_TREND = [
-  { time: '00:00', total: 12, high: 2 },
-  { time: '04:00', total: 8, high: 1 },
-  { time: '08:00', total: 25, high: 4 },
-  { time: '12:00', total: 42, high: 7 },
-  { time: '16:00', total: 38, high: 5 },
-  { time: '20:00', total: 30, high: 3 },
-  { time: '23:59', total: 18, high: 2 },
-];
 
 const RISK_COLORS = {
   HIGH: '#F43F5E',
@@ -99,6 +90,31 @@ export default function DashboardOverview() {
     .slice(0, 8);
 
   const flagged = transactions.filter((t) => t.status === 'REVIEW_REQUIRED').slice(0, 5);
+
+  // Compute real activity distribution from live transactions
+  const activityTrend = useMemo(() => {
+    if (transactions.length === 0) return [];
+
+    // Group transactions by hour
+    const buckets: Record<string, { time: string; total: number; high: number }> = {};
+    const sorted = [...transactions].sort(
+      (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+    );
+
+    sorted.forEach((tx) => {
+      const d = new Date(tx.timestamp);
+      const hourStr = `${String(d.getHours()).padStart(2, '0')}:00`;
+      if (!buckets[hourStr]) {
+        buckets[hourStr] = { time: hourStr, total: 0, high: 0 };
+      }
+      buckets[hourStr].total += 1;
+      if (tx.riskLevel === 'HIGH') {
+        buckets[hourStr].high += 1;
+      }
+    });
+
+    return Object.values(buckets);
+  }, [transactions]);
 
   return (
     <div>
@@ -193,6 +209,16 @@ export default function DashboardOverview() {
             />
           </div>
 
+          {/* Live Threat Radar & Defense Operations Command Center */}
+          <div className="mb-6">
+            <LiveThreatRadar transactions={transactions} />
+          </div>
+
+          {/* AI Explainability & SHAP Analytics Hub */}
+          <div className="mb-6">
+            <AdvancedExplainabilityHub />
+          </div>
+
           {/* Charts row */}
           <div className="grid lg:grid-cols-3 gap-5 mb-6">
             {/* Activity Chart */}
@@ -201,30 +227,37 @@ export default function DashboardOverview() {
                 <div>
                   <h3 className="text-white font-semibold text-sm">Transaction Activity</h3>
                   <p className="text-slate-500 text-xs mt-0.5">
-                    {transactions.length > 0 ? 'Live data from backend' : 'Sample trend (no data yet)'}
+                    {transactions.length > 0 ? 'Live stream from MongoDB' : 'No recorded transactions'}
                   </p>
                 </div>
                 <BarChart3 size={16} className="text-slate-600" />
               </div>
-              <ResponsiveContainer width="100%" height={180}>
-                <AreaChart data={MOCK_TREND} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="totalGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
-                    </linearGradient>
-                    <linearGradient id="highGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#F43F5E" stopOpacity={0.4} />
-                      <stop offset="95%" stopColor="#F43F5E" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <XAxis dataKey="time" tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} />
-                  <YAxis tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} />
-                  <Tooltip content={<CUSTOM_TOOLTIP />} />
-                  <Area type="monotone" dataKey="total" stroke="#3B82F6" strokeWidth={2} fill="url(#totalGrad)" name="Total" />
-                  <Area type="monotone" dataKey="high" stroke="#F43F5E" strokeWidth={2} fill="url(#highGrad)" name="High Risk" />
-                </AreaChart>
-              </ResponsiveContainer>
+              {activityTrend.length > 0 ? (
+                <ResponsiveContainer width="100%" height={180}>
+                  <AreaChart data={activityTrend} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="totalGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="#3B82F6" stopOpacity={0} />
+                      </linearGradient>
+                      <linearGradient id="highGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#F43F5E" stopOpacity={0.4} />
+                        <stop offset="95%" stopColor="#F43F5E" stopOpacity={0} />
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="time" tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} />
+                    <Tooltip content={<CUSTOM_TOOLTIP />} />
+                    <Area type="monotone" dataKey="total" stroke="#3B82F6" strokeWidth={2} fill="url(#totalGrad)" name="Total" />
+                    <Area type="monotone" dataKey="high" stroke="#F43F5E" strokeWidth={2} fill="url(#highGrad)" name="High Risk" />
+                  </AreaChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="flex flex-col items-center justify-center h-44 text-center">
+                  <BarChart3 size={24} className="text-slate-600 mb-2" />
+                  <p className="text-slate-500 text-xs">No transaction activity recorded yet.</p>
+                </div>
+              )}
             </div>
 
             {/* Risk Distribution */}

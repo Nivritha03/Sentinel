@@ -21,46 +21,7 @@ import { ConfirmDialog } from '../components/ui/ConfirmDialog';
 import { useToast } from '../components/ui/Toast';
 import { formatCurrency, formatTimestamp, formatRelativeTime, getRiskColor } from '../utils';
 
-function RiskScoreGauge({ score, level }: { score: number; level: string }) {
-  const color = getRiskColor(level);
-  return (
-    <div className="flex flex-col items-center p-6">
-      <div className="relative w-36 h-18 overflow-hidden mb-3">
-        <svg viewBox="0 0 200 100" className="w-full">
-          <defs>
-            <linearGradient id="gaugeGradDet" x1="0" x2="1" y1="0" y2="0">
-              <stop offset="0%" stopColor="#10B981" />
-              <stop offset="50%" stopColor="#F59E0B" />
-              <stop offset="100%" stopColor="#F43F5E" />
-            </linearGradient>
-          </defs>
-          <path d="M 10 100 A 90 90 0 0 1 190 100" stroke="rgba(255,255,255,0.08)" strokeWidth="14" fill="none" strokeLinecap="round" />
-          <path d="M 10 100 A 90 90 0 0 1 190 100" stroke="url(#gaugeGradDet)" strokeWidth="14" fill="none" strokeLinecap="round" opacity="0.4" />
-          <motion.line
-            x1="100" y1="100" x2="100" y2="18"
-            stroke={color} strokeWidth="3" strokeLinecap="round"
-            initial={{ rotate: -90 }}
-            animate={{ rotate: (score / 100) * 180 - 90 }}
-            style={{ originX: '100px', originY: '100px' }}
-            transition={{ type: 'spring', stiffness: 80, damping: 15, delay: 0.3 }}
-          />
-          <circle cx="100" cy="100" r="7" fill={color} style={{ filter: `drop-shadow(0 0 6px ${color})` }} />
-        </svg>
-      </div>
-      <motion.p
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="text-5xl font-black mb-1"
-        style={{ color }}
-      >
-        {score}
-      </motion.p>
-      <p className="text-slate-500 text-xs mb-2">Risk Score / 100</p>
-      <RiskBadge level={level as any} size="md" />
-    </div>
-  );
-}
+import { RiskGauge } from '../components/ui/RiskGauge';
 
 type DialogState = { open: boolean; decision: ReviewDecision | null };
 
@@ -228,11 +189,16 @@ export default function TransactionDetailPage() {
         {/* Right: Score + Actions */}
         <div className="space-y-5">
           {/* Score gauge */}
-          <div className="glass rounded-2xl border border-blue-500/10 overflow-hidden">
-            <div className="px-5 py-4 border-b border-blue-500/10">
-              <h3 className="text-white font-semibold text-sm">Risk Assessment</h3>
+          <div className="glass rounded-2xl border border-blue-500/20 overflow-hidden p-4 flex flex-col items-center">
+            <div className="w-full pb-3 border-b border-blue-500/10 mb-2">
+              <h3 className="text-white font-semibold text-sm">Risk Assessment Telemetry</h3>
             </div>
-            <RiskScoreGauge score={tx.riskScore} level={tx.riskLevel} />
+            <RiskGauge
+              score={tx.riskScore}
+              size={180}
+              label="Real-time Threat Score"
+              subtext={`Status: ${tx.status.replace(/_/g, ' ')}`}
+            />
           </div>
 
           {/* Review Actions */}

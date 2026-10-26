@@ -99,6 +99,75 @@
     background-clip: text;
   }
 
+  .gradient-text-danger {
+    background: linear-gradient(135deg, #F43F5E, #FB7185, #F59E0B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Cyberpunk & Defense Glows */
+  .glow-box-cyan {
+    box-shadow: 0 0 25px -5px rgba(34, 211, 238, 0.25), inset 0 0 15px -3px rgba(34, 211, 238, 0.1);
+  }
+
+  .glow-box-blue {
+    box-shadow: 0 0 30px -5px rgba(59, 130, 246, 0.25), inset 0 0 15px -3px rgba(59, 130, 246, 0.08);
+  }
+
+  .glow-box-rose {
+    box-shadow: 0 0 30px -5px rgba(244, 63, 94, 0.3), inset 0 0 15px -3px rgba(244, 63, 94, 0.1);
+  }
+
+  /* Telemetry Grid Background */
+  .cyber-grid {
+    background-image: linear-gradient(to right, rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .cyber-dots {
+    background-image: radial-gradient(rgba(34, 211, 238, 0.12) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Radar Pulse Animation */
+  @keyframes radar-sweep {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  .animate-radar {
+    animation: radar-sweep 4s linear infinite;
+  }
+
+  @keyframes telemetry-pulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.98); }
+    50% { opacity: 0.9; transform: scale(1.02); }
+  }
+
+  .animate-pulse-subtle {
+    animation: telemetry-pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(1000%); }
+  }
+
+  .scanline-effect {
+    position: relative;
+    overflow: hidden;
+  }
+  .scanline-effect::after {
+    content: " ";
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 12px;
+    background: linear-gradient(to bottom, transparent, rgba(34, 211, 238, 0.18), transparent);
+    animation: scanline 6s linear infinite;
+    pointer-events: none;
+  }
+
   /* Glow effects */
   .glow-blue {
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.25), 0 0 40px rgba(59, 130, 246, 0.1);

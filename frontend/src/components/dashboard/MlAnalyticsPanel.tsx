@@ -22,15 +22,7 @@ export const MlAnalyticsPanel: React.FC = () => {
         setLatestProb(data.latestFraudProbability);
         setTrend(data.trend || []);
       } catch (e) {
-        // Fallback demo data
-        setMode("HYBRID");
-        setLatestProb(0.18);
-        setTrend([
-          { ts: "10:00", prob: 0.12 },
-          { ts: "11:00", prob: 0.18 },
-          { ts: "12:00", prob: 0.45 },
-          { ts: "13:00", prob: 0.15 },
-        ]);
+        setTrend([]);
       } finally {
         setLoading(false);
       }
@@ -57,14 +49,20 @@ export const MlAnalyticsPanel: React.FC = () => {
         Recent fraud probability: <strong className="text-white">{(latestProb * 100).toFixed(1)}%</strong>
       </div>
 
-      <ResponsiveContainer width="100%" height={180}>
-        <LineChart data={trend}>
-          <XAxis dataKey="ts" tick={{ fontSize: 10, fill: "#94a3b8" }} stroke="#334155" />
-          <YAxis domain={[0, 1]} tickFormatter={(v) => `${(Number(v) * 100).toFixed(0)}%`} tick={{ fontSize: 10, fill: "#94a3b8" }} stroke="#334155" />
-          <RechartsTooltip formatter={(v: any) => `${(Number(v) * 100).toFixed(1)}%`} />
-          <Line type="monotone" dataKey="prob" stroke="#38bdf8" strokeWidth={2} dot={false} />
-        </LineChart>
-      </ResponsiveContainer>
+      {trend.length > 0 ? (
+        <ResponsiveContainer width="100%" height={180}>
+          <LineChart data={trend}>
+            <XAxis dataKey="ts" tick={{ fontSize: 10, fill: "#94a3b8" }} stroke="#334155" />
+            <YAxis domain={[0, 1]} tickFormatter={(v) => `${(Number(v) * 100).toFixed(0)}%`} tick={{ fontSize: 10, fill: "#94a3b8" }} stroke="#334155" />
+            <RechartsTooltip formatter={(v: any) => `${(Number(v) * 100).toFixed(1)}%`} />
+            <Line type="monotone" dataKey="prob" stroke="#38bdf8" strokeWidth={2} dot={false} />
+          </LineChart>
+        </ResponsiveContainer>
+      ) : (
+        <div className="flex flex-col items-center justify-center h-32 text-slate-500 text-xs">
+          No ML analytics trend recorded yet.
+        </div>
+      )}
     </div>
   );
 };
