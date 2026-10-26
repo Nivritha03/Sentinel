@@ -127,7 +127,7 @@ export default function SettingsPage() {
           <div className="p-5 flex items-center gap-4">
             <SentinelLogo size={40} />
             <div>
-              <p className="text-white font-semibold">Sentinel AI Fraud Detection</p>
+              <p className="text-white font-semibold">Sentinel Fraud Detection Platform</p>
               <p className="text-slate-500 text-xs mt-0.5">Frontend v1.0.0 · React + Vite + TypeScript</p>
               <p className="text-slate-500 text-xs mt-0.5">Backend: Spring Boot + MongoDB Atlas</p>
             </div>

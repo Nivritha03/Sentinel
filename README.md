@@ -1,13 +1,12 @@
 <div align="center">
 
 # 🛡️ SENTINEL
-### Next-Generation Autonomous AI Fraud Detection & Threat Intercept Platform
+### Next-Generation Automated Rule Engine & Real-Time Fraud Intercept Platform
 
 [![Java](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)](https://openjdk.org/)
 [![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.2.5-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-Python_3.10+-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 [![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
 [![MongoDB Atlas](https://img.shields.io/badge/MongoDB-Atlas_Cloud-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/atlas)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
@@ -15,7 +14,7 @@
 
 <br/>
 
-> **Sentinel** is an enterprise-grade, distributed AI fraud prevention architecture engineered to intercept malicious financial transactions in real time. It unifies high-throughput heuristic rule engines with Random Forest machine learning inference, SHAP model explainability, interactive adversarial simulation sandboxes, and a live cyber-defense telemetry radar.
+> **Sentinel** is an enterprise-grade, distributed fraud prevention platform engineered to intercept malicious financial transactions in real time. It unifies high-throughput heuristic rule evaluation, statistical explainability, interactive adversarial simulation sandboxes, and a live cyber-defense telemetry radar.
 
 <br/>
 

@@ -54,7 +54,7 @@ export const AdvancedExplainabilityHub: React.FC = () => {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h3 className="text-white text-sm font-semibold tracking-wide">AI EXPLAINABILITY & SHAP REASONING</h3>
+              <h3 className="text-white text-sm font-semibold tracking-wide">STATISTICAL EXPLAINABILITY & SHAP REASONING</h3>
               <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-violet-500/20 text-violet-300 border border-violet-500/30">
                 XGBoost + SHAP v2.4
               </span>

@@ -195,7 +195,7 @@ export const FraudSandboxPage: React.FC = () => {
     <div className="space-y-6">
       <PageHeader
         title="Fraud Simulation Sandbox"
-        subtitle="Interactively formulate adversarial transaction patterns and inspect real-time AI decision paths"
+        subtitle="Interactively formulate adversarial transaction patterns and inspect real-time automated decision paths"
         breadcrumbs={[{ label: 'Sentinel' }, { label: 'Fraud Sandbox' }]}
       />
 
@@ -343,7 +343,7 @@ export const FraudSandboxPage: React.FC = () => {
               <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             ) : (
               <>
-                <Play size={16} className="fill-white" /> Run Instant AI Intercept Evaluation
+                <Play size={16} className="fill-white" /> Run Instant Threat Intercept Evaluation
               </>
             )}
           </button>
@@ -391,7 +391,7 @@ export const FraudSandboxPage: React.FC = () => {
                   </div>
                 )}
 
-                {/* AI Decision Tree Pipeline */}
+                {/* Algorithmic Decision Tree Pipeline */}
                 <div>
                   <span className="text-[10px] font-mono text-slate-400 block mb-2 uppercase tracking-wider">
                     Model Inference Decision Tree
@@ -410,7 +410,7 @@ export const FraudSandboxPage: React.FC = () => {
               <div className="py-16 text-center space-y-3">
                 <GitBranch size={36} className="mx-auto text-blue-400/40 animate-pulse" />
                 <p className="text-xs text-slate-400 max-w-[240px] mx-auto">
-                  Click <strong className="text-white">Run Instant AI Intercept Evaluation</strong> to execute the full Sentinel pipeline against this payload.
+                  Click <strong className="text-white">Run Instant Threat Intercept Evaluation</strong> to execute the full Sentinel pipeline against this payload.
                 </p>
               </div>
             )}

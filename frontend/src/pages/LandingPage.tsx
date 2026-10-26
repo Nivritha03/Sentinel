@@ -367,7 +367,7 @@ export default function LandingPage() {
             <div>
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-300 text-xs font-semibold mb-6 uppercase tracking-widest">
-                <Cpu size={12} /> AI-Powered Fraud Intelligence
+                <Cpu size={12} /> Automated Rule Engine & Fraud Intelligence
               </motion.div>
 
               <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
@@ -590,7 +590,7 @@ export default function LandingPage() {
                 Ready to Stop Fraud <span className="gradient-text">Before It Happens?</span>
               </h2>
               <p className="text-slate-400 text-lg mb-8 max-w-xl mx-auto">
-                Open the Sentinel dashboard and start monitoring your transactions with AI-powered risk intelligence.
+                Open the Sentinel dashboard and start monitoring your transactions with automated risk intelligence.
               </p>
               <Link to="/dashboard" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-bold px-8 py-4 rounded-2xl transition-all glow-blue hover:scale-105 focus-ring text-base">
                 Open Dashboard <ChevronRight size={18} />
@@ -637,7 +637,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="border-t border-blue-500/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
-            <p className="text-slate-600 text-xs">© 2025 Sentinel. AI Fraud Detection Platform.</p>
+            <p className="text-slate-600 text-xs">© 2025 Sentinel. Real-Time Fraud Detection Platform.</p>
             <p className="text-slate-700 text-xs">Built with React, TypeScript, Spring Boot &amp; MongoDB</p>
           </div>
         </div>
