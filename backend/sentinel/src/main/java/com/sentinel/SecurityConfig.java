@@ -62,10 +62,13 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         if (allowedOrigin != null && !allowedOrigin.isBlank()) {
-            List<String> origins = java.util.Arrays.stream(allowedOrigin.split(","))
-                    .map(String::trim)
-                    .filter(s -> !s.isEmpty())
-                    .toList();
+            java.util.List<String> origins = new java.util.ArrayList<>();
+            for (String raw : allowedOrigin.split(",")) {
+                String trimmed = raw.trim();
+                if (!trimmed.isEmpty()) {
+                    origins.add(trimmed);
+                }
+            }
             config.setAllowedOrigins(origins);
         } else {
             config.setAllowedOrigins(List.of("http://localhost:5173"));
