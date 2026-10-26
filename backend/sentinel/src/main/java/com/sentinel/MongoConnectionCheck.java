@@ -18,12 +18,15 @@ public class MongoConnectionCheck implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        mongoTemplate.executeCommand(
-            new Document("ping", 1)
-        );
-
-        System.out.println(
-            "SUCCESS: Connected to MongoDB Atlas!"
-        );
+        try {
+            mongoTemplate.executeCommand(
+                new Document("ping", 1)
+            );
+            System.out.println(
+                "SUCCESS: Connected to MongoDB!"
+            );
+        } catch (Exception e) {
+            System.err.println("WARN: MongoDB ping failed: " + e.getMessage());
+        }
     }
 }
