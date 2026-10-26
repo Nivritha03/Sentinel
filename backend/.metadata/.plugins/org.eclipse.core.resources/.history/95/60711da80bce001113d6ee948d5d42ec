@@ -1,4 +1,0 @@
-spring.application.name=sentinel
-
-spring.mongodb.uri=${mongodb+srv://sentinel_app:<Nivritha2005>@cluster0.cs0ddny.mongodb.net/}
-server.port=8080

@@ -8,6 +8,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Eclipse & Metadata
+**/.metadata/
+**/RemoteSystemsTempFiles/
+**/.recommenders/
+**/*.launch
+
 # Java / Maven
 **/target/
 **/.apt_generated

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: sentinel-test
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/sentinel-test
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration
+
+sentinel:
+  ml:
+    base-url: http://localhost:8000
+    mode: RULES_ONLY
+  jwt:
+    secret: test_jwt_secret_key_minimum_32_characters_long_12345
+    expiration-ms: 86400000
+  admin:
+    username: admin
+    password: testpassword
