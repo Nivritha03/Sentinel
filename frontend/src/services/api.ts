@@ -139,6 +139,22 @@ export async function loginApi(credentials: {
   return data;
 }
 
+export async function registerApi(payload: {
+  username: string;
+  password: string;
+  role?: string;
+}): Promise<{ token: string; username: string; role: string }> {
+  const { data } = await api.post<{ token: string; username: string; role: string }>(
+    '/api/auth/register',
+    payload,
+  );
+  if (data.token) {
+    localStorage.setItem('sentinel_token', data.token);
+    localStorage.setItem('sentinel_user', JSON.stringify({ username: data.username, role: data.role }));
+  }
+  return data;
+}
+
 export async function forgotPasswordApi(email: string): Promise<{ message: string }> {
   const { data } = await api.post<{ message: string }>('/api/auth/forgot-password', { email });
   return data;

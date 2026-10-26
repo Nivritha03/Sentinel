@@ -88,6 +88,29 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/register")
+    public AuthResponse register(@Validated @RequestBody RegisterRequest req) {
+        String identifier = req.getUsername().trim();
+        String username = identifier.contains("@") ? identifier.split("@")[0] : identifier;
+
+        Role role = Role.ANALYST;
+        if (req.getRole() != null) {
+            try {
+                role = Role.valueOf(req.getRole().toUpperCase());
+            } catch (IllegalArgumentException ignored) {
+                role = Role.ANALYST;
+            }
+        }
+
+        try {
+            User newUser = userService.createUser(username, req.getPassword(), role);
+            String token = jwtUtil.generateToken(newUser.getUsername(), newUser.getRole().name());
+            return new AuthResponse(token, newUser.getUsername(), newUser.getRole().name());
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "An account with that email or username already exists.");
+        }
+    }
+
     @PostMapping("/forgot-password")
     public Map<String, String> forgotPassword(@RequestBody Map<String, String> payload) {
         String identifier = payload.get("email");
