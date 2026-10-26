@@ -20,8 +20,8 @@ import { useAuth } from '../context/AuthContext';
 
 export default function SignInPage() {
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
-  const [email, setEmail] = useState('admin@sentinel.local');
-  const [password, setPassword] = useState('admin123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -53,10 +53,6 @@ export default function SignInPage() {
     setEmailError(null);
     setPasswordError(null);
     setConfirmPasswordError(null);
-    if (newMode === 'signup' && email === 'admin@sentinel.local') {
-      setEmail('');
-      setPassword('');
-    }
   };
 
   const validate = () => {
@@ -406,14 +402,6 @@ export default function SignInPage() {
                 </label>
 
                 <span className="text-[11px] text-slate-500">30-day session</span>
-              </div>
-            )}
-
-            {/* Demo Hint (Sign In Mode) */}
-            {mode === 'signin' && (
-              <div className="bg-blue-500/10 border border-blue-500/20 rounded-xl p-3 text-[11px] text-slate-400">
-                <span className="text-blue-300 font-semibold">Demo credentials:</span>{' '}
-                admin@sentinel.local / admin123
               </div>
             )}
 
