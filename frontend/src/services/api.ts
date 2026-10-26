@@ -116,14 +116,30 @@ export async function fetchAuditLogsByTransaction(
 
 // ─── Authentication ─────────────────────────────────────────────────────────
 
-export async function loginApi(credentials: { username: string; password: string }): Promise<{ token: string; username: string; role: string }> {
+export async function loginApi(credentials: {
+  username: string;
+  password: string;
+  rememberMe?: boolean;
+}): Promise<{ token: string; username: string; role: string }> {
   const { data } = await api.post<{ token: string; username: string; role: string }>(
     '/api/auth/login',
     credentials,
   );
   if (data.token) {
-    localStorage.setItem('sentinel_token', data.token);
-    localStorage.setItem('sentinel_user', JSON.stringify({ username: data.username, role: data.role }));
+    if (credentials.rememberMe) {
+      localStorage.setItem('sentinel_token', data.token);
+      localStorage.setItem('sentinel_user', JSON.stringify({ username: data.username, role: data.role }));
+    } else {
+      sessionStorage.setItem('sentinel_token', data.token);
+      sessionStorage.setItem('sentinel_user', JSON.stringify({ username: data.username, role: data.role }));
+      localStorage.setItem('sentinel_token', data.token);
+      localStorage.setItem('sentinel_user', JSON.stringify({ username: data.username, role: data.role }));
+    }
   }
+  return data;
+}
+
+export async function forgotPasswordApi(email: string): Promise<{ message: string }> {
+  const { data } = await api.post<{ message: string }>('/api/auth/forgot-password', { email });
   return data;
 }

@@ -87,7 +87,7 @@ public class SecurityConfig {
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
             .authorizeHttpRequests(auth -> auth
                 // Auth endpoints — public
-                .requestMatchers("/api/auth/login").permitAll()
+                .requestMatchers("/api/auth/**").permitAll()
                 // Health check
                 .requestMatchers(HttpMethod.GET, "/actuator/health").permitAll()
                 // All other API endpoints require authentication

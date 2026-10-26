@@ -32,12 +32,16 @@ public class JwtUtil {
     }
 
     public String generateToken(String username, String role) {
+        return generateToken(username, role, expirationMs);
+    }
+
+    public String generateToken(String username, String role, long customExpirationMs) {
         Date now = new Date();
         return Jwts.builder()
                 .subject(username)
                 .claim("role", role)
                 .issuedAt(now)
-                .expiration(new Date(now.getTime() + expirationMs))
+                .expiration(new Date(now.getTime() + customExpirationMs))
                 .signWith(signingKey)
                 .compact();
     }
